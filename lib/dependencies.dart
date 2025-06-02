@@ -1,0 +1,2 @@
+//init method
+void initLocator() {}
