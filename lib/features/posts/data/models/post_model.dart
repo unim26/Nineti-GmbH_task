@@ -29,6 +29,6 @@ class PostModel extends PostEntity {
     tags: json['tags'],
     views: json['views'],
     userId: json['userId'],
-    reactions: json['reactions'],
+    reactions: ReactionModel.fromJson(json['reactions']),
   );
 }

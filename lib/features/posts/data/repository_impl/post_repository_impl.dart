@@ -17,11 +17,11 @@ class PostRepositoryImpl implements PostRepository {
   Future<DataState<List<PostEntity>>> getAllPostByUserId(int userId) async {
     try {
       //call api
-      final httpresponse = await _postDataService.getAllPostByUserId(userId);
+      final data = await _postDataService.getAllPostByUserId(userId);
 
       //check response
-      if (httpresponse.response.statusCode == 200) {
-        return DataSuccess(httpresponse.data);
+      if (data.isNotEmpty) {
+        return DataSuccess(data);
       } else {
         return DataFailed("An error occured while getting user posts");
       }

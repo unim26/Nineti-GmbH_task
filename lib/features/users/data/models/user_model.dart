@@ -48,8 +48,8 @@ class UserModel extends UserEntity {
     password: json['password'],
     image: json['image'],
     bloodGroup: json['bloodGroup'],
-    address: json['address'],
-    company: json['company'],
+    address: AddressModel.fromJson(json['address']),
+    company: CompanyModel.fromJson(json['company']),
     role: json['role'],
   );
 }

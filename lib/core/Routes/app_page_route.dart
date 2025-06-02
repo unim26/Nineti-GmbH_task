@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task/features/users/presentation/pages/user_page.dart';
 
 class AppPageRoute {
   static Map<String, Widget Function(BuildContext)> routes =
-    const <String, WidgetBuilder>{};
+     <String, WidgetBuilder>{
+      //user page
+      '/user-page':(_)=> UserPage(),
+    };
 }

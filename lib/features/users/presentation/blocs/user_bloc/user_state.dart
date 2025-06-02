@@ -28,6 +28,6 @@ class UserSuccessState extends UserState {
 }
 
 //failed state
-class UserFailedState extends UserState {
-  const UserFailedState(String message) : super(message: message);
+class UserErrorState extends UserState {
+  const UserErrorState(String message) : super(message: message);
 }

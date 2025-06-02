@@ -1,15 +1,21 @@
 import 'package:dio/dio.dart';
-
-import 'package:retrofit/retrofit.dart';
 import 'package:task/features/users/data/models/user_model.dart';
 
-part 'user_data_service.g.dart';
 
-@RestApi(baseUrl: 'https://dummyjson.com/')
-abstract class UserDataService {
-  factory UserDataService(Dio dio) = _UserDataService;
+ class UserDataService {
+  final Dio _dio;
+  final baseUrl = 'https://dummyjson.com/';
+
+   UserDataService( this._dio);
 
   //api call for getalluser
-  @GET('/users')
-  Future<HttpResponse<List<UserModel>>> getAllUsers();
+
+  Future<List<UserModel>> getAllUsers() async{
+    final option = RequestOptions(baseUrl: baseUrl,method: 'GET',path: '/users',);
+    final response = await _dio.fetch(option);
+
+    final data = response.data as Map<String,dynamic>;
+
+    return (data['users'] as List).map((json)=> UserModel.fromJson(json)).toList();
+  }
 }

@@ -19,6 +19,6 @@ class CompanyModel extends CompanyEntity {
     department: json['department'],
     name: json['name'],
     title: json['title'],
-    address: json['address'],
+    address: AddressModel.fromJson(json['address']),
   );
 }

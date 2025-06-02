@@ -11,7 +11,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   //constructure
 
   UserBloc(this._getAllUserUsecase) : super(UserInitialState()) {
-    //
+    //on get all event
+    on<GetAllUserEvent>(onGetAllUserEvent);
   }
 
   //on getAllEvent call
@@ -22,13 +23,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     //call get al user use case
     final datastate = await _getAllUserUsecase.call(null);
 
+
     //check data
     if (datastate is DataSuccess) {
       emit(UserSuccessState(datastate.data!));
     }
 
     if (datastate is DataFailed) {
-      emit(UserFailedState(datastate.message!));
+
+      emit(UserErrorState(datastate.message!));
     }
   }
 }

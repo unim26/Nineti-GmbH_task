@@ -1,20 +1,24 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:retrofit/dio.dart';
-import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
+import 'package:task/core/constants/app_constant.dart';
 import 'package:task/features/posts/data/models/post_model.dart';
 
-part 'post_data_service.g.dart';
-
-@RestApi(baseUrl: 'https://dummyjson.com/')
-abstract class PostDataService {
-  factory PostDataService(Dio dio) = _PostDataService;
+class PostDataService {
+  final Dio _dio;
+  PostDataService(this._dio);
 
   //method to get all post by user id
-  @GET('/posts/user/{userId}')
-  Future<HttpResponse<List<PostModel>>> getAllPostByUserId(
-    @Path("userId") int userId,
-  );
+  Future<List<PostModel>> getAllPostByUserId(
+   int userId
+  ) async{
+    final option = RequestOptions(baseUrl: appBaseUrl,method: 'GET',path: '/posts/user/$userId',);
+
+final response = await _dio.fetch(option);
+
+final data = response.data as Map<String,dynamic>;
+
+return (data['posts'] as List).map((json)=> PostModel.fromJson(json)).toList();
+
+  }
 }

@@ -15,11 +15,11 @@ class TodoRepositoyImpl implements TodoRepository {
   Future<DataState<List<TodoEntity>>> getAllTodoByUserId(int userId) async {
     try {
       //call api
-      final httpresponse = await _todoDataService.getAllTodoByUserId(userId);
+      final data = await _todoDataService.getAllTodoByUserId(userId);
 
       //check response
-      if (httpresponse.response.statusCode == 200) {
-        return DataSuccess(httpresponse.data);
+      if (data.isNotEmpty) {
+        return DataSuccess(data);
       } else {
         return DataFailed("An error occure while getting users todo");
       }

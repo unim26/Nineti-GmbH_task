@@ -16,11 +16,11 @@ class UserRepositoryImpl implements UserRepository {
   Future<DataState<List<UserEntity>>> getAllUsers() async {
     try {
       //call api
-      final httpresponse = await _userDataService.getAllUsers();
+      final data = await _userDataService.getAllUsers();
 
       //check response
-      if (httpresponse.response.statusCode == 200) {
-        return DataSuccess(httpresponse.data);
+      if (data.isNotEmpty) {
+        return DataSuccess(data);
       } else {
         return DataFailed('An error occured while trying to get all users');
       }
