@@ -30,6 +30,15 @@ class AppTextStyle {
     );
   }
 
+  //sub title title text style
+  static TextStyle labelTextStyle(BuildContext context) {
+    return Theme.of(context).textTheme.titleMedium!.copyWith(
+      fontFamily: GoogleFonts.roboto().fontFamily,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    );
+  }
+
   //info textstyle
   static TextStyle infoTextStyle(BuildContext context) {
     return Theme.of(context).textTheme.titleSmall!.copyWith(

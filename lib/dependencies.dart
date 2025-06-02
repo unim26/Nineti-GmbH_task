@@ -8,6 +8,7 @@ import 'package:task/features/todos/data/data_source/remote/todo_data_service.da
 import 'package:task/features/todos/data/repository_impl/todo_repositoy_impl.dart';
 import 'package:task/features/todos/domain/repositories/todo_repository.dart';
 import 'package:task/features/todos/domain/usecases/get_all_todo_by_userid_usecase.dart';
+import 'package:task/features/todos/presentation/blocs/todo_bloc/todo_bloc.dart';
 import 'package:task/features/users/data/data_source/remote/user_data_service.dart';
 import 'package:task/features/users/data/repository_impl/user_repository_impl.dart';
 import 'package:task/features/users/domain/repositories/user_repository.dart';
@@ -19,35 +20,33 @@ final locator = GetIt.instance;
 //init method
 void initLocator() {
   //dio
-  locator
-      .registerSingleton<Dio>(Dio())
-      .interceptors
-      .add(
-        InterceptorsWrapper(
-          onRequest: (options, handler) {
-            print("➡️ REQUEST:");
-            print("URL: ${options.uri}");
-            print("Method: ${options.method}");
-            print("Headers: ${options.headers}");
-            print("Data: ${options.data}");
-            return handler.next(options);
-          },
-          onResponse: (response, handler) {
-            print("✅ RESPONSE:");
-            print("Status Code: ${response.statusCode}");
-            print("Data: ${response.data}");
-            return handler.next(response);
-          },
-          onError: (DioError e, handler) {
-            print("❌ ERROR:");
-            print("Message: ${e.message}");
-            print("Response: ${e.response?.data}");
-            return handler.next(e);
-          },
-        ),
-      );
-
-  // myDio.request(url)
+  locator.registerSingleton<Dio>(Dio())
+  // .interceptors
+  // .add(
+  //   InterceptorsWrapper(
+  //     onRequest: (options, handler) {
+  //       print("➡️ REQUEST:");
+  //       print("URL: ${options.uri}");
+  //       print("Method: ${options.method}");
+  //       print("Headers: ${options.headers}");
+  //       print("Data: ${options.data}");
+  //       return handler.next(options);
+  //     },
+  //     onResponse: (response, handler) {
+  //       print("✅ RESPONSE:");
+  //       print("Status Code: ${response.statusCode}");
+  //       print("Data: ${response.data}");
+  //       return handler.next(response);
+  //     },
+  //     onError: (DioError e, handler) {
+  //       print("❌ ERROR:");
+  //       print("Message: ${e.message}");
+  //       print("Response: ${e.response?.data}");
+  //       return handler.next(e);
+  //     },
+  //   ),
+  // )
+  ;
 
   //=============================== Data services ===========================
   //user data service
@@ -92,5 +91,9 @@ void initLocator() {
   //=================================== blocs ===================================
   locator.registerFactory<UserBloc>(
     () => UserBloc(locator<GetAllUserUsecase>()),
+  );
+
+  locator.registerFactory<TodoBloc>(
+    () => TodoBloc(locator<GetAllTodoByUseridUsecase>()),
   );
 }

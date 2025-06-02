@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/features/users/presentation/pages/user_detail_page.dart';
 import 'package:task/features/users/presentation/pages/user_page.dart';
 
 class AppPageRoute {
@@ -6,5 +7,8 @@ class AppPageRoute {
      <String, WidgetBuilder>{
       //user page
       '/user-page':(_)=> UserPage(),
+
+      //user detail page
+      '/user-detail-page':(_)=> UserDetailPage(),
     };
 }
