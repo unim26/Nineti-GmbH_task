@@ -1,21 +1,30 @@
 import 'package:dio/dio.dart';
-import 'package:task/features/users/data/models/user_model.dart';
 
-
- class UserDataService {
+class UserDataService {
   final Dio _dio;
   final baseUrl = 'https://dummyjson.com/';
 
-   UserDataService( this._dio);
+  UserDataService(this._dio);
 
   //api call for getalluser
 
-  Future<List<UserModel>> getAllUsers() async{
-    final option = RequestOptions(baseUrl: baseUrl,method: 'GET',path: '/users',);
-    final response = await _dio.fetch(option);
+  Future<Response<dynamic>> getAllUsers() async {
+    final option = RequestOptions(
+      baseUrl: baseUrl,
+      method: 'GET',
+      path: '/users',
+    );
+    return await _dio.fetch(option);
+  }
 
-    final data = response.data as Map<String,dynamic>;
+  //api for searching user
+  Future<Response<dynamic>> searchUser(String query) async {
+    final options = RequestOptions(
+      baseUrl: baseUrl,
+      method: 'GET',
+      path: '/users/search?q=$query',
+    );
 
-    return (data['users'] as List).map((json)=> UserModel.fromJson(json)).toList();
+    return await _dio.fetch(options);
   }
 }

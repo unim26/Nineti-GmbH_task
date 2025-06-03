@@ -8,7 +8,6 @@ class AppTextStyle {
       fontFamily: GoogleFonts.roboto().fontFamily,
       fontWeight: FontWeight.bold,
       fontSize: 20,
-      color: Colors.black,
     );
   }
 
@@ -17,7 +16,6 @@ class AppTextStyle {
     return Theme.of(context).textTheme.titleLarge!.copyWith(
       fontFamily: GoogleFonts.roboto().fontFamily,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
     );
   }
 
@@ -26,7 +24,7 @@ class AppTextStyle {
     return Theme.of(context).textTheme.titleSmall!.copyWith(
       fontFamily: GoogleFonts.roboto().fontFamily,
       fontWeight: FontWeight.bold,
-      color: Colors.black.withValues(alpha: .5),
+      color: Colors.grey.shade400,
     );
   }
 
@@ -35,7 +33,6 @@ class AppTextStyle {
     return Theme.of(context).textTheme.titleMedium!.copyWith(
       fontFamily: GoogleFonts.roboto().fontFamily,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
     );
   }
 

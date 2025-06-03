@@ -26,7 +26,7 @@ class PostModel extends PostEntity {
     id: json['id'],
     title: json['title'],
     body: json['body'],
-    tags: json['tags'],
+    tags: (json['tags'] as List<dynamic>).map((tag)=> tag.toString()).toList(),
     views: json['views'],
     userId: json['userId'],
     reactions: ReactionModel.fromJson(json['reactions']),

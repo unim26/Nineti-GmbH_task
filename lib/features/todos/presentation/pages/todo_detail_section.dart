@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/core/App_Style/app_text_style.dart';
 import 'package:task/core/utils/widgets/app_loading_indicator.dart';
 import 'package:task/core/utils/widgets/app_snacbar.dart';
-import 'package:task/features/todos/domain/entities/todo_entity.dart';
-import 'package:task/features/todos/domain/usecases/get_all_todo_by_userid_usecase.dart';
 import 'package:task/features/todos/presentation/blocs/todo_bloc/todo_bloc.dart';
 import 'package:task/features/todos/presentation/blocs/todo_bloc/todo_event.dart';
 import 'package:task/features/todos/presentation/blocs/todo_bloc/todo_state.dart';
@@ -42,62 +40,76 @@ class _TodoDetailSectionState extends State<TodoDetailSection> {
           builder: (context, state) {
             if (state is TodoInitialState || state is TodoLoadingState) {
               return appLoadingIndicator();
-            } else if (state is TodoErrorState || state.todos!.isEmpty) {
-              return Center(child: Text('NO todo created yet......!'));
+            } else if (state is TodoErrorState) {
+              return Center(
+                child: Text(
+                  state.message!,
+                  style: AppTextStyle.infoTextStyle(context),
+                ),
+              );
             } else {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.todos!.length,
-                itemBuilder: (context, index) {
-                  final TodoEntity todo = state.todos![index];
-                  isCompleted = todo.isCompleted!;
-                  return Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ).copyWith(bottom: 10),
-                    padding: EdgeInsets.all(15).copyWith(right: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade300,
-                          blurRadius: 5,
-                          spreadRadius: 3,
+              return Column(
+                children: [
+                  state.todos!.isEmpty
+                      ? Center(
+                        child: Text(
+                          "No todo created yet.....!",
+                          style: AppTextStyle.infoTextStyle(context),
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        //check box
-                        Checkbox(
-                          value: isCompleted,
-                          onChanged: (value) {
-                            setState(() {
-                              isCompleted = value!;
-                            });
-                          },
-                        ),
+                      )
+                      : SizedBox(),
 
-                        //todo
-                        Expanded(
-                          child: Text(
-                            todo.todo!,
-                            style: AppTextStyle.subTitleTextStyle(context),
+                  //list all todos
+                  ...state.todos!.map(
+                    (todo) => Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ).copyWith(bottom: 15),
+                      padding: EdgeInsets.all(15).copyWith(right: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).colorScheme.secondary,
+
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 3,
+                            spreadRadius: 2,
                           ),
-                        ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          //check box
+                          Checkbox(
+                            value: isCompleted,
+                            onChanged: (value) {
+                              setState(() {
+                                isCompleted = value!;
+                              });
+                            },
+                          ),
 
-                        //delete button
-                        todo.isCompleted!
-                            ? IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.delete, color: Colors.red),
-                            )
-                            : SizedBox(),
-                      ],
+                          //todo
+                          Expanded(
+                            child: Text(
+                              todo.todo!,
+                              style: AppTextStyle.subTitleTextStyle(context),
+                            ),
+                          ),
+
+                          //delete button
+                          isCompleted
+                              ? IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.delete, color: Colors.red),
+                              )
+                              : SizedBox(),
+                        ],
+                      ),
                     ),
-                  );
-                },
+                  ),
+                ],
               );
             }
           },

@@ -5,5 +5,6 @@ abstract class UserRepository {
   //method to get all users
   Future<DataState<List<UserEntity>>> getAllUsers();
 
-  //method to get all 
+  //method to search user
+  Future<DataState<List<UserEntity>>> searchUser(String query);
 }

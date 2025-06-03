@@ -18,13 +18,13 @@ class UserDetailCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(15).copyWith(right: 5),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              blurRadius: 5,
+              blurRadius: 3,
               color: Colors.grey.shade300,
-              spreadRadius: 3,
+              spreadRadius: 2,
             ),
           ],
         ),
