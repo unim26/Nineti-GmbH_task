@@ -130,11 +130,6 @@ https://github.com/user-attachments/assets/18724d69-e5de-4bbb-adf2-153c137af7b2
 
 ## 📁 Folder Structure
 
-
-
-
-
-
 ```
 lib/
 ├── core/
@@ -142,6 +137,6 @@ lib/
 │   ├── posts/
 │   ├── todos/
 │   └── users/
-├── locator.dart
+├── dependencies.dart
 └── main.dart
 ```
